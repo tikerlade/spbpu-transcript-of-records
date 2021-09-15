@@ -145,6 +145,16 @@ if identifier:
         sf.to_excel(excel_writer=excel_writer, best_fit=list(to_excel_df.columns))
         excel_writer.save()
 
+        # Downloading of Excel table
+        st.markdown("## Download records")
+        with open("Grades.xlsx", "rb") as fout:
+            download = st.download_button(
+                "Download grades data as Excel 🗂",
+                data=fout.read(),
+                file_name="Grades.xlsx",
+                mime="application/vnd.ms-excel",
+            )
+
         # Statistics as numbers
         st.markdown("## Numbers")
         first_kpi, second_kpi, third_kpi = st.columns(3)
@@ -183,13 +193,8 @@ if identifier:
             st.markdown("**Subjects/semester**")
             st.bar_chart(semesters_subjects)
 
-        with open("Grades.xlsx", "rb") as fout:
-            download = st.download_button(
-                "Download grades data as Excel 🗂",
-                data=fout.read(),
-                file_name="Grades.xlsx",
-                mime="application/vnd.ms-excel",
-            )
-
     except json.JSONDecodeError:
         st.text("Maybe this code is overdue. Try new one ...")
+
+    except AttributeError:
+        st.text("Currently records are not available :(")
