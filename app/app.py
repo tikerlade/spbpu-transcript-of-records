@@ -118,7 +118,6 @@ if identifier:
         user_data = get_lk_data(identifier)
         df = pd.DataFrame(preprocess_lk_data(user_data))
 
-        print(df.columns)
         # Compute GPA data
         gpa = df[df.mark > 1].mark.mean()
 
